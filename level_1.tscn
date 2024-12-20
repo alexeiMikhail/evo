@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwh0d3mhm6545"]
+
+[ext_resource type="PackedScene" uid="uid://djurd6bltqyom" path="res://alien.tscn" id="1_qmwnj"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_0m4ve"]
+a = Vector2(-67, 423)
+b = Vector2(1197, 423)
+
+[node name="Level1" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="StaticBody2D"]
+points = PackedVector2Array(-67, 427, 1197, 427)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_0m4ve")
+
+[node name="Alien" parent="StaticBody2D" instance=ExtResource("1_qmwnj")]
+position = Vector2(136, 309)
+scale = Vector2(0.2, 0.2)

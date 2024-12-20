@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://djurd6bltqyom"]
+[gd_scene load_steps=6 format=3 uid="uid://djurd6bltqyom"]
 
 [ext_resource type="Script" path="res://alien.gd" id="1_qk2m3"]
 [ext_resource type="Texture2D" uid="uid://nlrlm64pfdcj" path="res://assets/asset_tad.png" id="1_wyydx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wy5bg"]
 radius = 210.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0j7v"]
+bg_color = Color(0.6, 0, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aebn2"]
+bg_color = Color(0.06, 0.6, 0, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="Alien" type="CharacterBody2D"]
 script = ExtResource("1_qk2m3")
@@ -15,3 +29,27 @@ texture = ExtResource("1_wyydx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 120)
 shape = SubResource("CircleShape2D_wy5bg")
+
+[node name="ChangeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+autostart = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(900, 80)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -450.0
+offset_right = 450.0
+offset_bottom = -423.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_m0j7v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aebn2")
+value = 50.0
+show_percentage = false
