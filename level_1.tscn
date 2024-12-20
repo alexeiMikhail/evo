@@ -18,4 +18,3 @@ shape = SubResource("SegmentShape2D_0m4ve")
 
 [node name="Alien" parent="StaticBody2D" instance=ExtResource("1_qmwnj")]
 position = Vector2(136, 309)
-scale = Vector2(0.2, 0.2)
