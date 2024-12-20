@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://hc5vkc7fhhtr"]
+
+[ext_resource type="PackedScene" uid="uid://da4ej7u0x7j44" path="res://water.tscn" id="1_k1mvy"]
+[ext_resource type="PackedScene" uid="uid://djurd6bltqyom" path="res://alien.tscn" id="2_ejw02"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tr6l"]
+size = Vector2(1152, 328)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_sxs3v"]
+
+[node name="WaterAndAirLevel" type="Node2D"]
+
+[node name="Water" parent="." instance=ExtResource("1_k1mvy")]
+
+[node name="ColorRect" type="ColorRect" parent="Water"]
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.36, 0.648, 1, 0.556863)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
+position = Vector2(576, 484)
+shape = SubResource("RectangleShape2D_1tr6l")
+
+[node name="Alien" parent="." instance=ExtResource("2_ejw02")]
+position = Vector2(290, 222)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_sxs3v")

@@ -21,9 +21,11 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
 [node name="Alien" type="CharacterBody2D"]
+scale = Vector2(0.1, 0.1)
 script = ExtResource("1_qk2m3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_wyydx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -53,3 +55,15 @@ theme_override_styles/background = SubResource("StyleBoxFlat_m0j7v")
 theme_override_styles/fill = SubResource("StyleBoxFlat_aebn2")
 value = 50.0
 show_percentage = false
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = -450.0
+offset_top = -760.0
+offset_right = 450.0
+offset_bottom = -510.0
+theme_override_font_sizes/font_size = 200
+text = "text"
+horizontal_alignment = 1
+
+[connection signal="timeout" from="ChangeTimer" to="." method="change_state"]
