@@ -88,6 +88,7 @@ offset_bottom = 138.0
 theme_override_fonts/normal_font = ExtResource("3_xmssu")
 theme_override_font_sizes/normal_font_size = 40
 text = "WASD OR ARROW KEYS TO MOVE"
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 offset_left = -269.0
@@ -97,6 +98,7 @@ offset_bottom = 229.0
 theme_override_fonts/normal_font = ExtResource("3_xmssu")
 theme_override_font_sizes/normal_font_size = 40
 text = "SPACE TO SWIM  UPWARDS"
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="."]
 offset_left = 1291.0
@@ -110,6 +112,7 @@ text = "[center]  YOU ARE ABLE TO DASH ONCE EVERY THREE SECONDS. USE YOUR DASHES
 
 PRESS SHIFT TO DASH"
 fit_content = true
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="."]
 offset_left = 4595.0
@@ -127,3 +130,4 @@ AIR
 
 "
 fit_content = true
+metadata/_edit_use_anchors_ = true
