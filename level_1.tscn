@@ -1,20 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwh0d3mhm6545"]
+[gd_scene load_steps=6 format=3 uid="uid://dwh0d3mhm6545"]
 
 [ext_resource type="PackedScene" uid="uid://djurd6bltqyom" path="res://alien.tscn" id="1_qmwnj"]
-[ext_resource type="Texture2D" uid="uid://d603nf6knpd8" path="res://assets/tiles placeholder.png" id="2_1lamm"]
-[ext_resource type="FontFile" uid="uid://bsrcnplcjhi1k" path="res://assets/Early GameBoy.ttf" id="3_eju4x"]
-[ext_resource type="Texture2D" uid="uid://dfpla1nk7x08f" path="res://assets/arrow.png" id="4_rrjpe"]
+[ext_resource type="Texture2D" uid="uid://b4l4mcpytk5cr" path="res://assets/evo tilemap v1.png" id="2_h318x"]
 [ext_resource type="Texture2D" uid="uid://frnbbcygkfm" path="res://assets/evopellet.png" id="5_5wiae"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_leiyt"]
-texture = ExtResource("2_1lamm")
-texture_region_size = Vector2i(64, 64)
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qjo8r"]
+texture = ExtResource("2_h318x")
+texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_jb86p"]
-tile_size = Vector2i(64, 64)
-sources/1 = SubResource("TileSetAtlasSource_leiyt")
+[sub_resource type="TileSet" id="TileSet_q8klu"]
+tile_size = Vector2i(256, 256)
+sources/1 = SubResource("TileSetAtlasSource_qjo8r")
 
 [node name="Level1" type="Node2D"]
 
@@ -30,100 +38,9 @@ position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_jb86p")
-format = 2
-
-[node name="controls" type="RichTextLabel" parent="."]
-offset_left = 59.0
-offset_top = 31.0
-offset_right = 1065.0
-offset_bottom = 102.0
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 25
-text = "UP , DOWN , LEFT , RIGHT ARROW KEYS TO SWIM"
-
-[node name="form explanation" type="RichTextLabel" parent="."]
-offset_left = 1829.0
-offset_top = 1054.0
-offset_right = 2194.0
-offset_bottom = 1276.0
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 17
-text = "YOU CHANGE FORMS
-EVERY 10 SECONDS in real levels. You can skip this timer by reaching an \"evopellet\" early.
-
-Touch the evopellet to continue and move to the next room."
-fit_content = true
-
-[node name="form explanation" type="RichTextLabel" parent="form explanation"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.407
-anchor_top = 0.425
-anchor_right = 0.407
-anchor_bottom = 0.425
-offset_left = 614.445
-offset_top = 912.65
-offset_right = 992.445
-offset_bottom = 983.65
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 25
-text = "YOU CHANGE FORMS
-EVERY 10 SECONDS"
-
-[node name="form explanation" type="RichTextLabel" parent="form explanation/form explanation"]
-layout_mode = 0
-offset_left = 763.0
-offset_top = 1007.0
-offset_right = 1141.0
-offset_bottom = 1078.0
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 25
-text = "YOU CHANGE FORMS
-EVERY 10 SECONDS"
-
-[node name="form explanation2" type="RichTextLabel" parent="."]
-offset_left = 739.0
-offset_top = 1028.0
-offset_right = 1162.0
-offset_bottom = 1068.0
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 23
-text = "PRESS SHIFT TO DASH"
-fit_content = true
-
-[node name="form explanation" type="RichTextLabel" parent="form explanation2"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.407
-anchor_top = 0.425
-anchor_right = 0.407
-anchor_bottom = 0.425
-offset_left = 614.445
-offset_top = 912.65
-offset_right = 992.445
-offset_bottom = 983.65
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 25
-text = "YOU CHANGE FORMS
-EVERY 10 SECONDS"
-
-[node name="form explanation" type="RichTextLabel" parent="form explanation2/form explanation"]
-layout_mode = 0
-offset_left = 763.0
-offset_top = 1007.0
-offset_right = 1141.0
-offset_bottom = 1078.0
-theme_override_fonts/normal_font = ExtResource("3_eju4x")
-theme_override_font_sizes/normal_font_size = 25
-text = "YOU CHANGE FORMS
-EVERY 10 SECONDS"
-
-[node name="Arrow" type="Sprite2D" parent="."]
-position = Vector2(952, 356)
 scale = Vector2(0.25, 0.25)
-skew = 0.193732
-texture = ExtResource("4_rrjpe")
+tile_set = SubResource("TileSet_q8klu")
+format = 2
 
 [node name="Evopellet" type="Sprite2D" parent="."]
 position = Vector2(2007, 1347)
