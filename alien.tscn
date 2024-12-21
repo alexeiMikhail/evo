@@ -66,4 +66,10 @@ theme_override_font_sizes/font_size = 200
 text = "text"
 horizontal_alignment = 1
 
+[node name="DashTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="ChangeTimer" to="." method="change_state"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
