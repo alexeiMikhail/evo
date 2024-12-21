@@ -29,19 +29,18 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("dash"):
+	if Input.is_action_just_pressed("dash") and not is_dashing:
 		initiate_dash()
+	if state == States.SWIM:
+		swim(delta)
+	if state == States.FLY:
+		fly(delta)
+	if state == States.RUN:
+		run(delta)
 	if is_dashing:
 		velocity.x = DASH_SPEED * dash_direction
-		velocity.y = 0
-		move_and_slide()
-		return
-	elif state == States.SWIM:
-		swim(delta)
-	elif state == States.FLY:
-		fly(delta)
-	elif state == States.RUN:
-		run(delta)
+	move_and_slide()
+
 
 func change_state():
 	state = (state + 1) % States.COUNT
@@ -49,13 +48,17 @@ func change_state():
 
 func run(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+	
+	# Early return so as not to change direction during a dash
+	if is_dashing:
+		return 
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
@@ -65,17 +68,21 @@ func run(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+
 
 func swim(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and in_water:
 		velocity.y = JUMP_VELOCITY
-
+	
+	# Early return so as not to change direction during a dash
+	if is_dashing:
+		return 
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
@@ -85,30 +92,33 @@ func swim(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
 
 
 func fly(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and not in_water:
 		velocity.y = JUMP_VELOCITY
-
+	
+	# Early return so as not to change direction during a dash
+	if is_dashing:
+		return 
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("move_left", "move_right")
-	if direction:
+	if direction and not is_dashing:
 		velocity.x = direction * SPEED
 		sprite_2d.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
 
 func initiate_dash():
+	velocity.y = 0
 	is_dashing = true
 	dash_timer.start()
 	if sprite_2d.flip_h:

@@ -32,11 +32,6 @@ texture = ExtResource("1_wyydx")
 position = Vector2(0, 120)
 shape = SubResource("CircleShape2D_wy5bg")
 
-[node name="ChangeTimer" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 10.0
-autostart = true
-
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(900, 80)
@@ -65,6 +60,11 @@ offset_bottom = -510.0
 theme_override_font_sizes/font_size = 200
 text = "text"
 horizontal_alignment = 1
+
+[node name="ChangeTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+autostart = true
 
 [node name="DashTimer" type="Timer" parent="."]
 unique_name_in_owner = true
