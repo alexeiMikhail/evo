@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0swbx71hxojj"]
+
+[ext_resource type="Script" path="res://moving_platform.gd" id="1_bbw2v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_35so0"]
+size = Vector2(24, 8)
+
+[node name="moving_platform" type="Node2D"]
+script = ExtResource("1_bbw2v")
+
+[node name="platform_body" type="CharacterBody2D" parent="."]
+
+[node name="platform_shape" type="CollisionShape2D" parent="platform_body"]
+scale = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_35so0")
