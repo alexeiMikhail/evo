@@ -21,8 +21,9 @@ position = Vector2(576, 484)
 shape = SubResource("RectangleShape2D_1tr6l")
 
 [node name="Alien" parent="." instance=ExtResource("2_ejw02")]
-position = Vector2(416, 184)
+position = Vector2(272, 392)
 scale = Vector2(0.05, 0.05)
+state = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 648)

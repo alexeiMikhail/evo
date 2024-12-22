@@ -19,11 +19,15 @@ var current_dashes: int = 0
 var was_in_water: bool = false
 var mario_swim_speed_modifier: float = 0.3
 
-const DASH_COUNT_ALLOWED: int = 1
-const DASH_SPEED = 800.0
-const SPEED = 400.0
-const JUMP_VELOCITY = -500.0
-const X_ACCELERATION = 25
+@export var DASH_COUNT_ALLOWED: int = 1
+@export var DASH_SPEED: float = 800.0
+@export var RUN_SPEED: float = 400.0
+@export var JUMP_VELOCITY: float = -500.0
+@export var X_ACCELERATION: float = 25
+@export var SWIM_SPEED: float = 8000.0
+@export var ROTATION_SPEED: float = 5.0
+@export var HOP_SPEED: float = 1000.0
+
 
 func _ready() -> void:
 	progress_bar.max_value = change_timer.wait_time
@@ -32,6 +36,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	progress_bar.value = change_timer.time_left
+
 
 func _physics_process(delta: float) -> void:
 	handle_dash_input()
@@ -73,7 +78,7 @@ func run(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	# Maintain x momentum when jumping from water
+	# Maintain x-momentum when jumping from water
 	if was_in_water:
 		handle_directional_input(mario_swim_speed_modifier)
 		return
@@ -83,7 +88,15 @@ func run(delta):
 
 
 func swim(delta):
-	pass
+	if not in_water:
+		fish_out_of_water(delta)
+		return
+	
+	var rotation_direction = Input.get_axis("rotate_left", "rotate_right")
+	rotation += rotation_direction * ROTATION_SPEED * delta
+	
+	var player_direction = Input.get_axis("swim_backward", "swim_forward")
+	velocity = player_direction * SWIM_SPEED * transform.x
 
 
 func mario_swim(delta):
@@ -131,7 +144,7 @@ func initiate_dash():
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
-	if Input.is_action_pressed("jump") and is_on_floor():
+	if Input.is_action_pressed("jump") and is_on_floor() or not coyote_timer.is_stopped():
 		jump()
 
 func jump(modifier: float = 1.0):
@@ -152,7 +165,7 @@ func handle_jump_input():
 func handle_directional_input(modifier: float = 1.0):
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED * modifier, X_ACCELERATION)
+		velocity.x = move_toward(velocity.x, direction * RUN_SPEED * modifier, X_ACCELERATION)
 		sprite_2d.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, X_ACCELERATION)
@@ -166,3 +179,23 @@ func handle_dash_input():
 func slow_on_water_entry():
 	if velocity.y > 200:
 		velocity.y = 200
+
+func fish_out_of_water(delta):
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
+	var rotation_direction = Input.get_axis("rotate_left", "rotate_right")
+	rotation += rotation_direction * ROTATION_SPEED * delta
+	
+	var player_direction = Input.get_axis("swim_backward", "swim_forward")
+	
+	if is_on_floor() and player_direction:
+		velocity = player_direction * HOP_SPEED * transform.x
+		velocity.y -= HOP_SPEED / 10
+	
+	if not player_direction:
+		pass
+
+
+func die():
+	pass
