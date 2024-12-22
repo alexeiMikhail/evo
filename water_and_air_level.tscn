@@ -21,6 +21,7 @@ shape = SubResource("RectangleShape2D_1tr6l")
 
 [node name="Alien" parent="." instance=ExtResource("2_ejw02")]
 position = Vector2(200, 72)
+scale = Vector2(0.05, 0.05)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 648)
@@ -46,6 +47,6 @@ debug_color = Color(0, 0.65112, 0.0330768, 0.42)
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(312, 224)
+position = Vector2(288, -72)
 shape = SubResource("RectangleShape2D_pa7c3")
 debug_color = Color(0, 0.65112, 0.0330768, 0.42)
