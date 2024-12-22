@@ -2,7 +2,7 @@ extends Node2D
 
 # tween variables
 var tween = create_tween()
-var platform_time: float = 3.0
+@export var platform_time: float = 3.0
 
 @onready var platform_body = $platform_body
 # Referenced within the stage. Has to be set as a child of the platform in the stage scene
