@@ -128,16 +128,22 @@ func mario_swim(delta):
 
 func fly(delta):
 	# Add the gravity.
-	if not is_on_floor() and not is_dashing:
+	if not is_on_floor() and not is_dashing and not in_water:
 		velocity += get_gravity() * delta
+	
+	if in_water:
+		velocity -= get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and not in_water:
+	if Input.is_action_just_pressed("jump"):
 		jump()
 	
 	# Do not change direction during a dash
 	if not is_dashing:
-		handle_directional_input()
+		if not in_water and not is_on_floor():
+			handle_directional_input()
+		if in_water or is_on_floor():
+			handle_directional_input(0.3)
 
 
 func initiate_dash():
