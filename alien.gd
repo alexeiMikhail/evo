@@ -52,7 +52,7 @@ func _physics_process(delta: float) -> void:
 	
 	var was_on_floor: bool = is_on_floor()
 	
-	# Reset dash counter after a collision
+	# Reset dash counter after a collision or when swimming in SWIM mode
 	if move_and_slide() or (in_water and state == States.SWIM):
 		current_dashes = 0
 		was_in_water = false
@@ -63,8 +63,10 @@ func _physics_process(delta: float) -> void:
 
 func change_state():
 	@warning_ignore("int_as_enum_without_cast")
+	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
 		self.rotation = 0
+	# Resets flip_h to avoid swimming backwards
 	elif state == States.FLY:
 		sprite_2d.flip_h = false
 		
@@ -138,15 +140,18 @@ func fly(delta):
 
 
 func initiate_dash():
+	# Adds dashes to the counter, asserting later that the player may not dash again until dashes are clear
 	current_dashes += 1
 	velocity.y = 0
 	is_dashing = true
 	dash_timer.start()
+	# Non-swim dash goes straight horizontally in faced direction
 	if state == States.RUN or state == States.FLY:
 		if sprite_2d.flip_h:
 			dash_direction = Vector2(-1, 0)
 		else:
 			dash_direction = Vector2(1, 0)
+	# Swim dash follows faced direction
 	elif state == States.SWIM:
 		dash_direction = Vector2(1,0).rotated(self.rotation)
 
@@ -197,6 +202,7 @@ func fish_out_of_water(delta):
 	
 	var player_direction = Input.get_axis("swim_backward", "swim_forward")
 	
+	# Out of water, player has tiny jumps in faced direction
 	if is_on_floor() and player_direction:
 		velocity = player_direction * HOP_SPEED * transform.x
 		velocity.y -= HOP_SPEED / 10
