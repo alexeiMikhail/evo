@@ -17,6 +17,26 @@ region = Rect2(0, 258, 258, 258)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hw111"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"fly_idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u6tm7")
@@ -30,6 +50,11 @@ animations = [{
 "loop": true,
 "name": &"swim",
 "speed": 8.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"swim_idle",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wy5bg"]
@@ -53,12 +78,10 @@ corner_radius_bottom_left = 100
 scale = Vector2(0.4, 0.4)
 script = ExtResource("1_qk2m3")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_hw111")
 animation = &"swim"
-autoplay = "swim"
-frame_progress = 0.758892
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.52588e-05)

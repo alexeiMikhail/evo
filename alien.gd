@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var change_timer: Timer = %ChangeTimer
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var sprite_2d: Sprite2D = %Sprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var label: Label = %Label
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
@@ -25,7 +25,7 @@ var mario_swim_speed_modifier: float = 0.3
 @export var RUN_SPEED: float = 400.0
 @export var JUMP_VELOCITY: float = -500.0
 @export var X_ACCELERATION: float = 25
-@export var SWIM_SPEED: float = 5000.0
+@export var SWIM_SPEED: float = 3000.0
 @export var ROTATION_SPEED: float = 5.0
 @export var HOP_SPEED: float = 1000.0
 
@@ -59,6 +59,8 @@ func _physics_process(delta: float) -> void:
 	
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
+		
+	animate()
 
 
 func change_state():
@@ -66,7 +68,7 @@ func change_state():
 	if state == States.SWIM:
 		self.rotation = 0
 	elif state == States.FLY:
-		sprite_2d.flip_h = false
+		animated_sprite_2d.flip_h = false
 		
 	state = (state + 1) % States.COUNT
 	label.text = States.keys()[state]
@@ -143,7 +145,7 @@ func initiate_dash():
 	is_dashing = true
 	dash_timer.start()
 	if state == States.RUN or state == States.FLY:
-		if sprite_2d.flip_h:
+		if animated_sprite_2d.flip_h:
 			dash_direction = Vector2(-1, 0)
 		else:
 			dash_direction = Vector2(1, 0)
@@ -174,7 +176,7 @@ func handle_directional_input(modifier: float = 1.0):
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * RUN_SPEED * modifier, X_ACCELERATION)
-		sprite_2d.flip_h = direction < 0
+		animated_sprite_2d.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, X_ACCELERATION)
 
@@ -204,6 +206,23 @@ func fish_out_of_water(delta):
 	if not player_direction:
 		pass
 
-
 func die():
 	pass
+
+func animate():
+	match state:
+		States.RUN:
+			if velocity > Vector2.ZERO:
+				animated_sprite_2d.play("run")
+			else:
+				animated_sprite_2d.play("run_idle")
+		States.SWIM:
+			if velocity > Vector2.ZERO:
+				animated_sprite_2d.play("swim")
+			else:
+				animated_sprite_2d.play("swim_idle")
+		States.FLY:
+			if velocity > Vector2.ZERO:
+				animated_sprite_2d.play("fly")
+			else:
+				animated_sprite_2d.play("fly_idle")
