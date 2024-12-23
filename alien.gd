@@ -13,7 +13,8 @@ enum States {RUN, FLY, SWIM, COUNT}
 
 var in_water: bool = false
 var is_dashing: bool = false
-var dash_direction: int = 1
+#var dash_direction: int = 1
+var dash_direction: Vector2
 var holding_jump: bool = false
 var current_dashes: int = 0
 var was_in_water: bool = false
@@ -24,7 +25,7 @@ var mario_swim_speed_modifier: float = 0.3
 @export var RUN_SPEED: float = 400.0
 @export var JUMP_VELOCITY: float = -500.0
 @export var X_ACCELERATION: float = 25
-@export var SWIM_SPEED: float = 8000.0
+@export var SWIM_SPEED: float = 5000.0
 @export var ROTATION_SPEED: float = 5.0
 @export var HOP_SPEED: float = 1000.0
 
@@ -47,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	if state == States.RUN:
 		run(delta)
 	if is_dashing:
-		velocity.x = DASH_SPEED * dash_direction
+		velocity = DASH_SPEED * dash_direction
 	
 	var was_on_floor: bool = is_on_floor()
 	
@@ -62,6 +63,11 @@ func _physics_process(delta: float) -> void:
 
 func change_state():
 	@warning_ignore("int_as_enum_without_cast")
+	if state == States.SWIM:
+		self.rotation = 0
+	elif state == States.FLY:
+		sprite_2d.flip_h = false
+		
 	state = (state + 1) % States.COUNT
 	label.text = States.keys()[state]
 
@@ -136,11 +142,13 @@ func initiate_dash():
 	velocity.y = 0
 	is_dashing = true
 	dash_timer.start()
-	if sprite_2d.flip_h:
-		dash_direction = -1
-	else:
-		dash_direction = 1
-		
+	if state == States.RUN or state == States.FLY:
+		if sprite_2d.flip_h:
+			dash_direction = Vector2(-1, 0)
+		else:
+			dash_direction = Vector2(1, 0)
+	elif state == States.SWIM:
+		dash_direction = Vector2(1,0).rotated(self.rotation)
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
