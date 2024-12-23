@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 	var was_on_floor: bool = is_on_floor()
 	
 	# Reset dash counter after a collision
-	if move_and_slide() or in_water:
+	if move_and_slide() or (in_water and state == States.SWIM):
 		current_dashes = 0
 		was_in_water = false
 	
