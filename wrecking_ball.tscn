@@ -30,4 +30,6 @@ scale = Vector2(11, 11)
 shape = SubResource("CircleShape2D_egdbo")
 debug_color = Color(0.986813, 0, 0.31968, 0.42)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [connection signal="body_entered" from="placeholderBall/Area2D" to="." method="_on_area_2d_body_entered"]
