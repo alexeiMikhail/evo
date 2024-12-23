@@ -13,6 +13,7 @@ size = Vector2(1152, 328)
 size = Vector2(1003.49, 65.9938)
 
 [node name="WaterAndAirLevel" type="Node2D"]
+position = Vector2(0, -2)
 
 [node name="Water" parent="." instance=ExtResource("1_k1mvy")]
 
