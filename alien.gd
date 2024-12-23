@@ -3,12 +3,12 @@ extends CharacterBody2D
 
 @onready var change_timer: Timer = %ChangeTimer
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var sprite_2d: AnimatedSprite2D = %Sprite2D
+@onready var sprite_2d: Sprite2D = %Sprite2D
 @onready var label: Label = %Label
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
 
-enum States {RUN, FLY, SWIM, COUNT}
+enum States {RUN, SWIM, FLY, COUNT}
 @export var state: States
 
 var in_water: bool = false
@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 
 
 # TODO update so that states don't loop
-func change_state():
+func change_state(looping: bool = false):
 	@warning_ignore("int_as_enum_without_cast")
 	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
@@ -70,8 +70,10 @@ func change_state():
 	# Resets flip_h to avoid swimming backwards
 	elif state == States.FLY:
 		sprite_2d.flip_h = false
-		
-	state = (state + 1) % States.COUNT
+	
+	if state + 1 < States.COUNT or looping:
+		state = (state + 1) % States.COUNT
+	
 	label.text = States.keys()[state]
 
 func run(delta):
@@ -212,6 +214,9 @@ func fish_out_of_water(delta):
 		pass
 
 
+# TODO respawn at last checkpoint
+# TODO add some checkpoints to level 1
+# TODO add kill-zone scene (or maybe a detection area on the player?)
 func die():
 	pass
 
