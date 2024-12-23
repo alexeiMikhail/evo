@@ -61,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		coyote_timer.start()
 
 
+# TODO update so that states don't loop
 func change_state():
 	@warning_ignore("int_as_enum_without_cast")
 	if state == States.SWIM:
@@ -207,3 +208,7 @@ func fish_out_of_water(delta):
 
 func die():
 	pass
+
+
+func pick_up_evopellet():
+	change_state()
