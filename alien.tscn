@@ -1,10 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://djurd6bltqyom"]
+[gd_scene load_steps=10 format=3 uid="uid://djurd6bltqyom"]
 
 [ext_resource type="Script" path="res://alien.gd" id="1_qk2m3"]
-[ext_resource type="Texture2D" uid="uid://nlrlm64pfdcj" path="res://assets/asset_tad.png" id="1_wyydx"]
+[ext_resource type="Texture2D" uid="uid://djsdv6jugy4ab" path="res://assets/spritesheet.png" id="2_eyvl2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6tm7"]
+atlas = ExtResource("2_eyvl2")
+region = Rect2(0, 0, 258, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mabye"]
+atlas = ExtResource("2_eyvl2")
+region = Rect2(258, 0, 258, 258)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ld3ie"]
+atlas = ExtResource("2_eyvl2")
+region = Rect2(0, 258, 258, 258)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hw111"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6tm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mabye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ld3ie")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 8.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wy5bg"]
-radius = 210.0
+radius = 60.8276
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0j7v"]
 bg_color = Color(0.6, 0, 0, 1)
@@ -21,15 +50,18 @@ corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
 [node name="Alien" type="CharacterBody2D"]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.4, 0.4)
 script = ExtResource("1_qk2m3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("1_wyydx")
+sprite_frames = SubResource("SpriteFrames_hw111")
+animation = &"swim"
+autoplay = "swim"
+frame_progress = 0.758892
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 120)
+position = Vector2(0, 1.52588e-05)
 shape = SubResource("CircleShape2D_wy5bg")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
