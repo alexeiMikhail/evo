@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Evo"
-run/main_scene="res://test_room.tscn"
+run/main_scene="res://level_1.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 
 [input]

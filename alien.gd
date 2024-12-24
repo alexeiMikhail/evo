@@ -10,6 +10,7 @@ extends CharacterBody2D
 
 enum States {RUN, SWIM, FLY, COUNT}
 @export var state: States
+@export var starting_location: Marker2D
 
 var in_water: bool = false
 var is_dashing: bool = false
@@ -34,6 +35,7 @@ var mario_swim_speed_modifier: float = 0.3
 func _ready() -> void:
 	progress_bar.max_value = change_timer.wait_time
 	label.text = States.keys()[state]
+	#global_position = starting_location.global_position
 
 
 func _process(_delta: float) -> void:
@@ -233,7 +235,9 @@ func fish_out_of_water(delta):
 # TODO add kill-zone scene (or maybe a detection area on the player?)
 func die():
 	print("dead")
-	pass
+	#get_tree().reload_current_scene()
+	get_parent().get_parent()._restart()
+
 
 
 func pick_up_evopellet():
