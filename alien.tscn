@@ -1,9 +1,15 @@
-[gd_scene load_steps=28 format=3 uid="uid://djurd6bltqyom"]
+[gd_scene load_steps=34 format=3 uid="uid://djurd6bltqyom"]
 
 [ext_resource type="Script" path="res://alien.gd" id="1_qk2m3"]
 [ext_resource type="Texture2D" uid="uid://djsdv6jugy4ab" path="res://assets/spritesheet.png" id="2_eyvl2"]
 [ext_resource type="Texture2D" uid="uid://dens33sp3bwxl" path="res://spritesheet_flystate.png" id="2_hpkou"]
 [ext_resource type="Texture2D" uid="uid://dplpj8ap7ruj7" path="res://spritesheet land.png" id="2_wob8e"]
+[ext_resource type="AudioStream" uid="uid://cvd2sxcu13046" path="res://assets/SFX/death.ogg" id="5_byvkw"]
+[ext_resource type="AudioStream" uid="uid://dx4fddxqr8hek" path="res://assets/SFX/evopellet noise.ogg" id="6_peph3"]
+[ext_resource type="AudioStream" uid="uid://qomh4vvi7u5r" path="res://assets/SFX/fly jump.ogg" id="7_0msoe"]
+[ext_resource type="AudioStream" uid="uid://cjdmffy0nermo" path="res://assets/SFX/jump.ogg" id="8_0p77y"]
+[ext_resource type="AudioStream" uid="uid://2th4x3ng7vt7" path="res://assets/SFX/land dash.ogg" id="9_sat48"]
+[ext_resource type="AudioStream" uid="uid://b72e601b6gpxj" path="res://assets/SFX/pluck.ogg" id="10_u7o3y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxrso"]
 atlas = ExtResource("2_hpkou")
@@ -203,7 +209,7 @@ position = Vector2(0, -30)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_hw111")
 animation = &"run"
-frame_progress = 0.520819
+frame_progress = 0.514043
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.52588e-05)
@@ -260,6 +266,29 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 1.52588e-05)
 shape = SubResource("CircleShape2D_wy5bg")
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="death" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_byvkw")
+volume_db = -10.341
+
+[node name="evolve" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("6_peph3")
+volume_db = -5.673
+
+[node name="fly_jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("7_0msoe")
+volume_db = -12.435
+
+[node name="run_jump" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("8_0p77y")
+
+[node name="dash" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("9_sat48")
+
+[node name="dash_pluck" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("10_u7o3y")
 
 [connection signal="timeout" from="ChangeTimer" to="." method="change_state"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

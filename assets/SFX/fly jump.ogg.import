@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qomh4vvi7u5r"
+path="res://.godot/imported/fly jump.ogg-2d636f1018905d571e9db09b4241b27b.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/SFX/fly jump.ogg"
+dest_files=["res://.godot/imported/fly jump.ogg-2d636f1018905d571e9db09b4241b27b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

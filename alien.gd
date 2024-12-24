@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(looping: bool = false):
-	position.y = 0
+	$AnimatedSprite2D.position.y = 0
+	$SFX/evolve.play()
 	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
 		self.rotation = 0
@@ -181,6 +182,10 @@ func _on_dash_timer_timeout() -> void:
 
 func jump(modifier: float = 1.0):
 	velocity.y += JUMP_VELOCITY * modifier
+	if state == States.RUN:
+		$SFX/run_jump.play()
+	if state == States.FLY:
+		$SFX/fly_jump.play()
 
 func jump_cut():
 	if velocity.y < -100:
@@ -205,6 +210,7 @@ func handle_directional_input(modifier: float = 1.0):
 
 func handle_dash_input():
 	if Input.is_action_just_pressed("dash") and not is_dashing and current_dashes < DASH_COUNT_ALLOWED:
+		$SFX/dash.play()
 		initiate_dash()
 
 
@@ -253,10 +259,11 @@ func animate():
 # TODO add some checkpoints to level 1
 # TODO add kill-zone scene (or maybe a detection area on the player?)
 func die():
-	print("dead")
+	#print("dead")
 	#get_tree().reload_current_scene()
-	print("Parent:", get_parent())
-	print("Grandparent:", get_parent().get_parent())
+	#print("Parent:", get_parent())
+	#print("Grandparent:", get_parent().get_parent())
+	$SFX/death.play()
 	self.get_parent().get_parent()._restart()
 
 
