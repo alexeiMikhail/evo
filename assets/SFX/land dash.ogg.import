@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://2th4x3ng7vt7"
+path="res://.godot/imported/land dash.ogg-82ddefc5562dfe1191f64e960547337e.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/SFX/land dash.ogg"
+dest_files=["res://.godot/imported/land dash.ogg-82ddefc5562dfe1191f64e960547337e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
