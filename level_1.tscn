@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bsrcnplcjhi1k" path="res://assets/Early GameBoy.ttf" id="3_xmssu"]
 [ext_resource type="Texture2D" uid="uid://hh76w8fbxd4l" path="res://assets/flag.png" id="4_5d4sa"]
 [ext_resource type="PackedScene" uid="uid://d6kteolw0236" path="res://evo_pellet.tscn" id="5_ta7bx"]
-[ext_resource type="PackedScene" uid="uid://c0laucb33g0og" path="res://key.tscn" id="6_yktq1"]
+[ext_resource type="PackedScene" uid="uid://cgkyhqwadb5uw" path="res://key.tscn" id="6_yktq1"]
 [ext_resource type="Texture2D" uid="uid://cv1ckn1la5dyn" path="res://assets/locked_gate.png" id="7_lf3r2"]
 [ext_resource type="Texture2D" uid="uid://d1l1avammu2ok" path="res://assets/gate.png" id="8_w51mc"]
 
@@ -121,7 +121,6 @@ size = Vector2(64, 960)
 
 [node name="StartingLocation" type="Marker2D" parent="."]
 position = Vector2(546, 210)
-scale = Vector2(1, 1)
 
 [node name="Alien" parent="." node_paths=PackedStringArray("starting_location") instance=ExtResource("1_qmwnj")]
 position = Vector2(544, 360)
