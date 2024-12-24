@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dwh0d3mhm6545"]
+[gd_scene load_steps=17 format=4 uid="uid://dwh0d3mhm6545"]
 
 [ext_resource type="PackedScene" uid="uid://djurd6bltqyom" path="res://alien.tscn" id="1_qmwnj"]
 [ext_resource type="Texture2D" uid="uid://d3hv0ksq8x0ei" path="res://assets/evo tileset 1.2.png" id="2_2l4ms"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://d6kteolw0236" path="res://evo_pellet.tscn" id="5_ta7bx"]
 [ext_resource type="PackedScene" uid="uid://cgkyhqwadb5uw" path="res://key.tscn" id="6_yktq1"]
 [ext_resource type="PackedScene" uid="uid://c0swbx71hxojj" path="res://moving_platform.tscn" id="8_17lxn"]
+[ext_resource type="PackedScene" uid="uid://cji4iovfbgxm7" path="res://wrecking_ball.tscn" id="8_dddo0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pj08u"]
 texture = ExtResource("2_2l4ms")
@@ -116,7 +117,7 @@ sources/2 = SubResource("TileSetAtlasSource_rputj")
 position = Vector2(546, 210)
 
 [node name="Alien" parent="." node_paths=PackedStringArray("starting_location") instance=ExtResource("1_qmwnj")]
-position = Vector2(7328, -200)
+position = Vector2(4496, -176)
 starting_location = NodePath("../StartingLocation")
 
 [node name="Camera2D" type="Camera2D" parent="Alien"]
@@ -439,6 +440,9 @@ scale = Vector2(0.25, 0.25)
 [node name="EvoPellet2" parent="." instance=ExtResource("5_ta7bx")]
 position = Vector2(11039, 1374)
 scale = Vector2(0.25, 0.25)
+
+[node name="wrecking_ball" parent="." instance=ExtResource("8_dddo0")]
+position = Vector2(4960, -320)
 
 [node name="moving_platform" parent="." instance=ExtResource("8_17lxn")]
 position = Vector2(6112, 992)
