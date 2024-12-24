@@ -236,7 +236,9 @@ func fish_out_of_water(delta):
 func die():
 	print("dead")
 	#get_tree().reload_current_scene()
-	get_parent().get_parent()._restart()
+	print("Parent:", get_parent())
+	print("Grandparent:", get_parent().get_parent())
+	self.get_parent().get_parent()._restart()
 
 
 
