@@ -73,5 +73,15 @@ unique_name_in_owner = true
 wait_time = 0.15
 one_shot = true
 
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1.52588e-05)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_wy5bg")
+
 [connection signal="timeout" from="ChangeTimer" to="." method="change_state"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="got_spiked"]

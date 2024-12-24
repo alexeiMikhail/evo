@@ -66,6 +66,11 @@ swim_backward={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="spikes"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
