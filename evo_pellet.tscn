@@ -8,6 +8,7 @@ radius = 57.5257
 height = 237.588
 
 [node name="EvoPellet" type="Area2D"]
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_63awy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkviwcapqc7hs"]
+
+[gd_scene load_steps=8 format=3 uid="uid://bkviwcapqc7hs"]
 
 [ext_resource type="Script" path="res://scene_controller.gd" id="1_aygul"]
 [ext_resource type="PackedScene" uid="uid://dwh0d3mhm6545" path="res://level_1.tscn" id="1_mcjrh"]
+[ext_resource type="AudioStream" uid="uid://brcaobds8ifhr" path="res://assets/ost.ogg" id="3_nt1rh"]
 
 [sub_resource type="Animation" id="Animation_jqyn5"]
 length = 0.001
@@ -71,5 +73,11 @@ offset_right = 22288.0
 offset_bottom = 5704.0
 color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nt1rh")
+volume_db = -20.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

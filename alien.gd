@@ -8,8 +8,9 @@ extends CharacterBody2D
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
 
-enum States {RUN, FLY, SWIM, COUNT}
+enum States {RUN, SWIM, FLY, COUNT}
 @export var state: States
+@export var starting_location: Marker2D
 
 var in_water: bool = false
 var is_dashing: bool = false
@@ -26,14 +27,16 @@ var last_upward_velocity = 0
 @export var RUN_SPEED: float = 400.0
 @export var JUMP_VELOCITY: float = -500.0
 @export var X_ACCELERATION: float = 25
-@export var SWIM_SPEED: float = 3000.0
+@export var SWIM_SPEED: float = 1400.0
 @export var ROTATION_SPEED: float = 5.0
 @export var HOP_SPEED: float = 1000.0
+@export var GLIDE_MODIFIER: float = 0.75
 
 
 func _ready() -> void:
 	progress_bar.max_value = change_timer.wait_time
 	label.text = States.keys()[state]
+	#global_position = starting_location.global_position
 
 
 func _process(_delta: float) -> void:
@@ -53,7 +56,7 @@ func _physics_process(delta: float) -> void:
 	
 	var was_on_floor: bool = is_on_floor()
 	
-	# Reset dash counter after a collision
+	# Reset dash counter after a collision or when swimming in SWIM mode
 	if move_and_slide() or (in_water and state == States.SWIM):
 		current_dashes = 0
 		was_in_water = false
@@ -64,10 +67,12 @@ func _physics_process(delta: float) -> void:
 	animate()
 
 
-func change_state():
-	@warning_ignore("int_as_enum_without_cast")
+func change_state(looping: bool = false):
+	
+	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
 		self.rotation = 0
+	# Resets flip_h to avoid swimming backwards
 	elif state == States.FLY:
 		animated_sprite_2d.flip_h = false
 		
@@ -127,9 +132,14 @@ func mario_swim(delta):
 
 
 func fly(delta):
+	var is_gliding: bool = Input.is_action_pressed("jump") and velocity.y > 0 and not in_water
+	
 	# Add the gravity.
-	if not is_on_floor() and not is_dashing:
+	if not is_on_floor() and not is_dashing and not in_water and not is_gliding:
 		velocity += get_gravity() * delta
+	
+	if in_water:
+		velocity -= get_gravity() * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and not in_water:
@@ -137,19 +147,30 @@ func fly(delta):
 	
 	# Do not change direction during a dash
 	if not is_dashing:
-		handle_directional_input()
+		if not in_water and not is_on_floor() and not is_gliding:
+			handle_directional_input()
+		if in_water or is_on_floor():
+			handle_directional_input(0.3)
+		if is_gliding:
+			handle_directional_input(GLIDE_MODIFIER)
+	
+	if is_gliding:
+		velocity.y = move_toward(velocity.y, RUN_SPEED * GLIDE_MODIFIER, get_gravity().y * delta) 
 
 
 func initiate_dash():
+	# Adds dashes to the counter, asserting later that the player may not dash again until dashes are clear
 	current_dashes += 1
 	velocity.y = 0
 	is_dashing = true
 	dash_timer.start()
+	# Non-swim dash goes straight horizontally in faced direction
 	if state == States.RUN or state == States.FLY:
 		if animated_sprite_2d.flip_h:
 			dash_direction = Vector2(-1, 0)
 		else:
 			dash_direction = Vector2(1, 0)
+	# Swim dash follows faced direction
 	elif state == States.SWIM:
 		dash_direction = Vector2(1,0).rotated(self.rotation)
 
@@ -200,15 +221,13 @@ func fish_out_of_water(delta):
 	
 	var player_direction = Input.get_axis("swim_backward", "swim_forward")
 	
+	# Out of water, player has tiny jumps in faced direction
 	if is_on_floor() and player_direction:
 		velocity = player_direction * HOP_SPEED * transform.x
 		velocity.y -= HOP_SPEED / 10
 	
 	if not player_direction:
 		pass
-
-func die():
-	pass
 
 func animate():
 	match state:
@@ -230,3 +249,21 @@ func animate():
 			else:
 				animated_sprite_2d.play("fly_idle")
 			last_upward_velocity = velocity.y
+# TODO respawn at last checkpoint
+# TODO add some checkpoints to level 1
+# TODO add kill-zone scene (or maybe a detection area on the player?)
+func die():
+	print("dead")
+	#get_tree().reload_current_scene()
+	print("Parent:", get_parent())
+	print("Grandparent:", get_parent().get_parent())
+	self.get_parent().get_parent()._restart()
+
+
+
+func pick_up_evopellet():
+	change_state()
+
+
+func got_spiked(_body: Node2D) -> void:
+	die()

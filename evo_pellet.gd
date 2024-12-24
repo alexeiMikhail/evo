@@ -5,5 +5,5 @@ extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	if body is Alien:
 		var alien = body
-		#alien.pick_up_evopellet()
+		alien.pick_up_evopellet()
 	queue_free()
