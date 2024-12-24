@@ -129,7 +129,6 @@ position = Vector2(546, 210)
 
 [node name="Alien" parent="." node_paths=PackedStringArray("starting_location") instance=ExtResource("1_qmwnj")]
 position = Vector2(160, 360)
-state = 1
 starting_location = NodePath("../StartingLocation")
 
 [node name="Camera2D" type="Camera2D" parent="Alien"]
