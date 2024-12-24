@@ -28,6 +28,7 @@ var mario_swim_speed_modifier: float = 0.3
 @export var SWIM_SPEED: float = 5000.0
 @export var ROTATION_SPEED: float = 5.0
 @export var HOP_SPEED: float = 1000.0
+@export var GLIDE_MODIFIER: float = 0.75
 
 
 func _ready() -> void:
@@ -129,9 +130,14 @@ func mario_swim(delta):
 
 
 func fly(delta):
+	var is_gliding: bool = Input.is_action_pressed("jump") and velocity.y > 0 and not in_water
+	
 	# Add the gravity.
-	if not is_on_floor() and not is_dashing:
+	if not is_on_floor() and not is_dashing and not in_water and not is_gliding:
 		velocity += get_gravity() * delta
+	
+	if in_water:
+		velocity -= get_gravity() * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and not in_water:
@@ -139,7 +145,15 @@ func fly(delta):
 	
 	# Do not change direction during a dash
 	if not is_dashing:
-		handle_directional_input()
+		if not in_water and not is_on_floor() and not is_gliding:
+			handle_directional_input()
+		if in_water or is_on_floor():
+			handle_directional_input(0.3)
+		if is_gliding:
+			handle_directional_input(GLIDE_MODIFIER)
+	
+	if is_gliding:
+		velocity.y = move_toward(velocity.y, RUN_SPEED * GLIDE_MODIFIER, get_gravity().y * delta) 
 
 
 func initiate_dash():
