@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cji4iovfbgxm7"]
 
 [ext_resource type="Script" path="res://wrecking_ball.gd" id="1_jwkof"]
-[ext_resource type="Texture2D" uid="uid://frnbbcygkfm" path="res://assets/evopellet.png" id="2_t72nq"]
-[ext_resource type="Texture2D" uid="uid://tx7nkmmb0hlg" path="res://assets/FallingForItVine.png" id="3_btgmr"]
+[ext_resource type="Texture2D" uid="uid://dm7ta8d1w6q7" path="res://assets/chain.png" id="2_sg8sb"]
+[ext_resource type="Texture2D" uid="uid://p3a113hej5e3" path="res://assets/wrecking_ball.png" id="3_po731"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_egdbo"]
 
@@ -13,15 +13,15 @@ script = ExtResource("1_jwkof")
 [node name="wrecking_line" type="Line2D" parent="."]
 unique_name_in_owner = true
 texture_repeat = 2
-width = 20.0
-texture = ExtResource("3_btgmr")
+width = 60.0
+texture = ExtResource("2_sg8sb")
 texture_mode = 1
 
 [node name="placeholderBall" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, 160)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_t72nq")
+texture = ExtResource("3_po731")
 
 [node name="Area2D" type="Area2D" parent="placeholderBall"]
 
@@ -29,7 +29,5 @@ texture = ExtResource("2_t72nq")
 scale = Vector2(11, 11)
 shape = SubResource("CircleShape2D_egdbo")
 debug_color = Color(0.986813, 0, 0.31968, 0.42)
-
-[node name="Camera2D" type="Camera2D" parent="."]
 
 [connection signal="body_entered" from="placeholderBall/Area2D" to="." method="_on_area_2d_body_entered"]
