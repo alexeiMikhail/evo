@@ -102,7 +102,7 @@ size = Vector2(64, 960)
 position = Vector2(6834, -474)
 
 [node name="Alien" parent="StaticBody2D" instance=ExtResource("1_qmwnj")]
-position = Vector2(136, 309)
+position = Vector2(-6331, 309)
 
 [node name="Camera2D" type="Camera2D" parent="StaticBody2D/Alien"]
 zoom = Vector2(1.25, 1.25)

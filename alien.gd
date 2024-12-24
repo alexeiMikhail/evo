@@ -213,8 +213,13 @@ func fish_out_of_water(delta):
 
 
 func die():
+	print("dead")
 	pass
 
 
 func pick_up_evopellet():
 	change_state()
+
+
+func got_spiked(_body: Node2D) -> void:
+	die()
