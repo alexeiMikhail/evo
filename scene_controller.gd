@@ -8,6 +8,7 @@ var advancing = false
 
 func _ready():
 	$AnimationPlayer/ColorRect.color.a = 0
+	
 
 func _restart():
 	animation_player.play("fade_in")
