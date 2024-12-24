@@ -21,6 +21,15 @@ shape = SubResource("RectangleShape2D_dlv45")
 
 [node name="Alien" parent="." instance=ExtResource("2_mq15a")]
 position = Vector2(128, 152)
+state = null
+DASH_COUNT_ALLOWED = null
+DASH_SPEED = null
+RUN_SPEED = null
+JUMP_VELOCITY = null
+X_ACCELERATION = null
+SWIM_SPEED = null
+ROTATION_SPEED = null
+HOP_SPEED = null
 
 [node name="Camera2D" type="Camera2D" parent="Alien"]
 position = Vector2(0.000244141, -2.49994)

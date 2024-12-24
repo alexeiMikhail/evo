@@ -212,17 +212,17 @@ func die():
 func animate():
 	match state:
 		States.RUN:
-			if velocity > Vector2.ZERO:
+			if velocity.length() > 0:
 				animated_sprite_2d.play("run")
 			else:
 				animated_sprite_2d.play("run_idle")
 		States.SWIM:
-			if velocity > Vector2.ZERO:
+			if velocity.length() > 0:
 				animated_sprite_2d.play("swim")
 			else:
 				animated_sprite_2d.play("swim_idle")
 		States.FLY:
-			if velocity > Vector2.ZERO:
+			if velocity.length() > 0:
 				animated_sprite_2d.play("fly")
 			else:
 				animated_sprite_2d.play("fly_idle")
