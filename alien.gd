@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var change_timer: Timer = %ChangeTimer
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var sprite_2d: Sprite2D = %Sprite2D
+@onready var animated_sprite_2d: AnimatedSprite2D = %AnimatedSprite2D
 @onready var label: Label = %Label
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
@@ -20,6 +20,7 @@ var holding_jump: bool = false
 var current_dashes: int = 0
 var was_in_water: bool = false
 var mario_swim_speed_modifier: float = 0.3
+var last_upward_velocity = 0
 
 @export var DASH_COUNT_ALLOWED: int = 1
 @export var DASH_SPEED: float = 800.0
@@ -62,6 +63,8 @@ func _physics_process(delta: float) -> void:
 	
 	if was_on_floor and not is_on_floor():
 		coyote_timer.start()
+		
+	animate()
 
 
 func change_state(looping: bool = false):
@@ -71,12 +74,9 @@ func change_state(looping: bool = false):
 		self.rotation = 0
 	# Resets flip_h to avoid swimming backwards
 	elif state == States.FLY:
-		sprite_2d.flip_h = false
-	
-	if state + 1 < States.COUNT or looping:
-		@warning_ignore("int_as_enum_without_cast")
-		state = (state + 1) % States.COUNT
-	
+		animated_sprite_2d.flip_h = false
+		
+	state = (state + 1) % States.COUNT
 	label.text = States.keys()[state]
 
 func run(delta):
@@ -166,7 +166,7 @@ func initiate_dash():
 	dash_timer.start()
 	# Non-swim dash goes straight horizontally in faced direction
 	if state == States.RUN or state == States.FLY:
-		if sprite_2d.flip_h:
+		if animated_sprite_2d.flip_h:
 			dash_direction = Vector2(-1, 0)
 		else:
 			dash_direction = Vector2(1, 0)
@@ -198,7 +198,7 @@ func handle_directional_input(modifier: float = 1.0):
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * RUN_SPEED * modifier, X_ACCELERATION)
-		sprite_2d.flip_h = direction < 0
+		animated_sprite_2d.flip_h = direction < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, X_ACCELERATION)
 
@@ -229,7 +229,26 @@ func fish_out_of_water(delta):
 	if not player_direction:
 		pass
 
-
+func animate():
+	match state:
+		States.RUN:
+			if !is_on_floor():
+				animated_sprite_2d.play("run_jump")
+			elif velocity.length() > 0:
+				animated_sprite_2d.play("run")
+			else:
+				animated_sprite_2d.play("run_idle")
+		States.SWIM:
+			if velocity.length() > 0:
+				animated_sprite_2d.play("swim")
+			else:
+				animated_sprite_2d.play("swim_idle")
+		States.FLY:
+			if velocity.length() > 0 and last_upward_velocity / 1.2 > velocity.y:
+				animated_sprite_2d.play("fly")
+			else:
+				animated_sprite_2d.play("fly_idle")
+			last_upward_velocity = velocity.y
 # TODO respawn at last checkpoint
 # TODO add some checkpoints to level 1
 # TODO add kill-zone scene (or maybe a detection area on the player?)

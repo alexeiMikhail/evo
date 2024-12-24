@@ -1,0 +1,73 @@
+[gd_scene load_steps=6 format=3 uid="uid://bilvlnjr4yvys"]
+
+[ext_resource type="Script" path="res://test_room.gd" id="1_43qaf"]
+[ext_resource type="PackedScene" uid="uid://da4ej7u0x7j44" path="res://water.tscn" id="1_kjdf0"]
+[ext_resource type="PackedScene" uid="uid://djurd6bltqyom" path="res://alien.tscn" id="2_mq15a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlv45"]
+size = Vector2(1152, 672)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1wgo"]
+
+[node name="test_room" type="Node2D"]
+script = ExtResource("1_43qaf")
+
+[node name="Water" parent="." instance=ExtResource("1_kjdf0")]
+position = Vector2(632, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water"]
+position = Vector2(576, 656)
+shape = SubResource("RectangleShape2D_dlv45")
+
+[node name="Alien" parent="." instance=ExtResource("2_mq15a")]
+position = Vector2(128, 152)
+state = null
+DASH_COUNT_ALLOWED = null
+DASH_SPEED = null
+RUN_SPEED = null
+JUMP_VELOCITY = null
+X_ACCELERATION = null
+SWIM_SPEED = null
+ROTATION_SPEED = null
+HOP_SPEED = null
+
+[node name="Camera2D" type="Camera2D" parent="Alien"]
+position = Vector2(0.000244141, -2.49994)
+scale = Vector2(2.5, 2.5)
+zoom = Vector2(2, 2)
+
+[node name="test_button" type="Button" parent="."]
+offset_left = 184.0
+offset_top = -256.0
+offset_right = 292.0
+offset_bottom = -225.0
+scale = Vector2(10.1053, 9.87037)
+text = "Change form"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(120, 592)
+scale = Vector2(56.9082, 34.6036)
+shape = SubResource("RectangleShape2D_t1wgo")
+debug_color = Color(0, 0.506161, 0.129649, 0.42)
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1088, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(120, 592)
+scale = Vector2(56.9082, 34.6036)
+shape = SubResource("RectangleShape2D_t1wgo")
+debug_color = Color(0, 0.506161, 0.129649, 0.42)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(2192, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(120, 592)
+scale = Vector2(56.9082, 34.6036)
+shape = SubResource("RectangleShape2D_t1wgo")
+debug_color = Color(0, 0.506161, 0.129649, 0.42)
+
+[connection signal="pressed" from="test_button" to="." method="_on_test_button_pressed"]
