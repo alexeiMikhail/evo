@@ -19,6 +19,7 @@ var holding_jump: bool = false
 var current_dashes: int = 0
 var was_in_water: bool = false
 var mario_swim_speed_modifier: float = 0.3
+var last_upward_velocity = 0
 
 @export var DASH_COUNT_ALLOWED: int = 1
 @export var DASH_SPEED: float = 800.0
@@ -224,7 +225,8 @@ func animate():
 			else:
 				animated_sprite_2d.play("swim_idle")
 		States.FLY:
-			if velocity.length() > 0:
+			if velocity.length() > 0 and last_upward_velocity / 1.2 > velocity.y:
 				animated_sprite_2d.play("fly")
 			else:
 				animated_sprite_2d.play("fly_idle")
+			last_upward_velocity = velocity.y

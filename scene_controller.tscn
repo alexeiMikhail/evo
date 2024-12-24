@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyy8lg6e407ou"]
+[gd_scene load_steps=7 format=3 uid="uid://bkviwcapqc7hs"]
 
 [ext_resource type="Script" path="res://scene_controller.gd" id="1_aygul"]
 [ext_resource type="PackedScene" uid="uid://dwh0d3mhm6545" path="res://level_1.tscn" id="1_mcjrh"]
@@ -57,7 +57,7 @@ _data = {
 [node name="scene_controller" type="Node"]
 script = ExtResource("1_aygul")
 
-[node name="Level1" parent="." instance=ExtResource("1_mcjrh")]
+[node name="level_1" parent="." instance=ExtResource("1_mcjrh")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
