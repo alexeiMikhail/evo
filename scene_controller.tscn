@@ -66,6 +66,8 @@ libraries = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
+anchors_preset = -1
+anchor_right = 5.47222
 offset_left = -2696.0
 offset_top = -3944.0
 offset_right = 22288.0
