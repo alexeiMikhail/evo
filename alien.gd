@@ -34,7 +34,7 @@ var mario_swim_speed_modifier: float = 0.3
 func _ready() -> void:
 	progress_bar.max_value = change_timer.wait_time
 	label.text = States.keys()[state]
-	global_position = starting_location.global_position
+	#global_position = starting_location.global_position
 
 
 func _process(_delta: float) -> void:
@@ -220,7 +220,9 @@ func fish_out_of_water(delta):
 # TODO add some checkpoints to level 1
 # TODO add kill-zone scene (or maybe a detection area on the player?)
 func die():
-	get_tree().reload_current_scene()
+	print("dead")
+	#get_tree().reload_current_scene()
+	get_parent().get_parent()._restart()
 
 
 
