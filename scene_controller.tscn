@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyy8lg6e407ou"]
+
+[ext_resource type="Script" path="res://scene_controller.gd" id="1_aygul"]
+[ext_resource type="PackedScene" uid="uid://dwh0d3mhm6545" path="res://level_1.tscn" id="1_mcjrh"]
+
+[sub_resource type="Animation" id="Animation_jqyn5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_lc50b"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_jhkrj"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayer/ColorRect:color:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bg04x"]
+_data = {
+"RESET": SubResource("Animation_jqyn5"),
+"fade_in": SubResource("Animation_lc50b"),
+"fade_out": SubResource("Animation_jhkrj")
+}
+
+[node name="scene_controller" type="Node"]
+script = ExtResource("1_aygul")
+
+[node name="Level1" parent="." instance=ExtResource("1_mcjrh")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bg04x")
+}
+
+[node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
+offset_left = -2696.0
+offset_top = -3944.0
+offset_right = 22288.0
+offset_bottom = 5704.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

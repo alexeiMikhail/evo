@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d3hv0ksq8x0ei" path="res://assets/evo tileset 1.2.png" id="2_2l4ms"]
 [ext_resource type="FontFile" uid="uid://bsrcnplcjhi1k" path="res://assets/Early GameBoy.ttf" id="3_xmssu"]
 [ext_resource type="Texture2D" uid="uid://hh76w8fbxd4l" path="res://assets/flag.png" id="4_5d4sa"]
-[ext_resource type="PackedScene" uid="uid://c4kbkhveey4fr" path="res://evo_pellet.tscn" id="5_ta7bx"]
+[ext_resource type="PackedScene" uid="uid://d6kteolw0236" path="res://evo_pellet.tscn" id="5_ta7bx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pj08u"]
 texture = ExtResource("2_2l4ms")

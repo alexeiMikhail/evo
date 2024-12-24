@@ -1,7 +1,32 @@
-[gd_scene load_steps=11 format=3 uid="uid://djurd6bltqyom"]
+[gd_scene load_steps=18 format=3 uid="uid://djurd6bltqyom"]
 
 [ext_resource type="Script" path="res://alien.gd" id="1_qk2m3"]
 [ext_resource type="Texture2D" uid="uid://djsdv6jugy4ab" path="res://assets/spritesheet.png" id="2_eyvl2"]
+[ext_resource type="Texture2D" uid="uid://dplpj8ap7ruj7" path="res://spritesheet land.png" id="2_wob8e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjave"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4or0"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tyti"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg4hu"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3w1bc"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2i72"]
+atlas = ExtResource("2_wob8e")
+region = Rect2(512, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u6tm7"]
 atlas = ExtResource("2_eyvl2")
@@ -31,14 +56,37 @@ animations = [{
 "name": &"fly_idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjave")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4or0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tyti")
+}],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 8.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg4hu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3w1bc")
+}],
 "loop": true,
 "name": &"run_idle",
+"speed": 1.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n2i72")
+}],
+"loop": true,
+"name": &"run_jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -87,8 +135,10 @@ script = ExtResource("1_qk2m3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_hw111")
-animation = &"swim"
+animation = &"run_jump"
+frame_progress = 0.645139
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.52588e-05)
