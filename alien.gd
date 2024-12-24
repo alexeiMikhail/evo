@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var change_timer: Timer = %ChangeTimer
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var sprite_2d: AnimatedSprite2D = %Sprite2D
+@onready var sprite_2d: Sprite2D = %Sprite2D
 @onready var label: Label = %Label
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
