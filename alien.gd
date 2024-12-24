@@ -62,9 +62,8 @@ func _physics_process(delta: float) -> void:
 		coyote_timer.start()
 
 
-# TODO update so that states don't loop
 func change_state(looping: bool = false):
-	@warning_ignore("int_as_enum_without_cast")
+	
 	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
 		self.rotation = 0
@@ -73,6 +72,7 @@ func change_state(looping: bool = false):
 		sprite_2d.flip_h = false
 	
 	if state + 1 < States.COUNT or looping:
+		@warning_ignore("int_as_enum_without_cast")
 		state = (state + 1) % States.COUNT
 	
 	label.text = States.keys()[state]
