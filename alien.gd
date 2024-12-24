@@ -68,7 +68,7 @@ func _physics_process(delta: float) -> void:
 
 
 func change_state(looping: bool = false):
-	
+	position.y = 0
 	# Resets rotation to 0 when beginning run. Avoids running rotated
 	if state == States.SWIM:
 		self.rotation = 0

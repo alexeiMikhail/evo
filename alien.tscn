@@ -199,11 +199,11 @@ script = ExtResource("1_qk2m3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-5, 27.5)
+position = Vector2(0, -30)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_hw111")
-animation = &"fly"
-frame_progress = 0.591916
+animation = &"run"
+frame_progress = 0.520819
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.52588e-05)
@@ -211,6 +211,7 @@ shape = SubResource("CircleShape2D_wy5bg")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(900, 80)
 anchors_preset = 8
 anchor_left = 0.5
@@ -230,11 +231,11 @@ show_percentage = false
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-offset_left = -450.0
-offset_top = -760.0
-offset_right = 450.0
-offset_bottom = -510.0
-theme_override_font_sizes/font_size = 200
+offset_left = -460.0
+offset_top = -280.0
+offset_right = 440.0
+offset_bottom = -7.0
+theme_override_font_sizes/font_size = 100
 text = "text"
 horizontal_alignment = 1
 
