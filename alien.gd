@@ -212,7 +212,9 @@ func die():
 func animate():
 	match state:
 		States.RUN:
-			if velocity.length() > 0:
+			if !is_on_floor():
+				animated_sprite_2d.play("run_jump")
+			elif velocity.length() > 0:
 				animated_sprite_2d.play("run")
 			else:
 				animated_sprite_2d.play("run_idle")
