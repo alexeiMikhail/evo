@@ -3,13 +3,14 @@ extends CharacterBody2D
 
 @onready var change_timer: Timer = %ChangeTimer
 @onready var progress_bar: ProgressBar = %ProgressBar
-@onready var sprite_2d: AnimatedSprite2D = %Sprite2D
+@onready var sprite_2d: Sprite2D = %Sprite2D
 @onready var label: Label = %Label
 @onready var dash_timer: Timer = %DashTimer
 @onready var coyote_timer: Timer = %CoyoteTimer
 
 enum States {RUN, FLY, SWIM, COUNT}
 @export var state: States
+@export var starting_location: Marker2D
 
 var in_water: bool = false
 var is_dashing: bool = false
@@ -33,6 +34,7 @@ var mario_swim_speed_modifier: float = 0.3
 func _ready() -> void:
 	progress_bar.max_value = change_timer.wait_time
 	label.text = States.keys()[state]
+	global_position = starting_location.global_position
 
 
 func _process(_delta: float) -> void:
@@ -213,7 +215,7 @@ func fish_out_of_water(delta):
 
 
 func die():
-	pass
+	get_tree().reload_current_scene()
 
 
 func pick_up_evopellet():

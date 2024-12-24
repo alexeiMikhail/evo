@@ -88,8 +88,9 @@ size = Vector2(64, 960)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(6834, -474)
 
-[node name="Alien" parent="StaticBody2D" instance=ExtResource("1_qmwnj")]
+[node name="Alien" parent="StaticBody2D" node_paths=PackedStringArray("starting_location") instance=ExtResource("1_qmwnj")]
 position = Vector2(136, 309)
+starting_location = NodePath("../../StartingLocation")
 
 [node name="Camera2D" type="Camera2D" parent="StaticBody2D/Alien"]
 zoom = Vector2(1.25, 1.25)
@@ -514,3 +515,6 @@ texture = ExtResource("8_w51mc")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="key2"]
 position = Vector2(3328, 320)
 shape = SubResource("RectangleShape2D_o14kt")
+
+[node name="StartingLocation" type="Marker2D" parent="."]
+position = Vector2(546, 210)
