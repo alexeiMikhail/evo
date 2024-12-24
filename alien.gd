@@ -218,8 +218,13 @@ func fish_out_of_water(delta):
 # TODO add some checkpoints to level 1
 # TODO add kill-zone scene (or maybe a detection area on the player?)
 func die():
+	print("dead")
 	pass
 
 
 func pick_up_evopellet():
 	change_state()
+
+
+func got_spiked(_body: Node2D) -> void:
+	die()
